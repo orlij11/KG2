@@ -19,7 +19,7 @@ public class InteractiveEllipseEditor extends JFrame {
     private JLabel statusLabel;
 
     public InteractiveEllipseEditor() {
-        setTitle("Interactive Ellipse Editor");
+        setTitle("Ellipse");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 700);
         setLocationRelativeTo(null);

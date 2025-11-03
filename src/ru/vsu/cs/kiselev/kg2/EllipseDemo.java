@@ -18,7 +18,6 @@ public class EllipseDemo extends JFrame {
     }
 
     private void createDemoEllipses() {
-        // Эллипс 1: через центр и полуоси (параметрический алгоритм)
         EllipseDrawer ellipse1 = new EllipseDrawer();
         ellipse1.setEllipse(new Point(200, 150), 100, 50);
         ellipse1.setColor(Color.BLUE);
@@ -49,7 +48,6 @@ public class EllipseDemo extends JFrame {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Рисуем все эллипсы
         for (int i = 0; i < ellipses.size(); i++) {
             EllipseDrawer ellipse = ellipses.get(i);
             ellipse.draw(g2d);
