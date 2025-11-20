@@ -1,5 +1,4 @@
 package ru.vsu.cs.kiselev.kg2;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ public class EllipseDrawer {
     private boolean showControlPoints = false;
 
     public EllipseDrawer() {
-        this.algorithm = new ParametricAlgorithm();
+        this.algorithm = new BresenhamAlgorithm();
         this.color = Color.BLACK;
         this.lineWidth = 1;
         this.controlPoints = new ArrayList<>();
@@ -86,8 +85,6 @@ public class EllipseDrawer {
 
     public void moveControlPoint(ControlPoint cp, Point newPosition) {
         Point center = params.getCenter();
-        double a = params.getA();
-        double b = params.getB();
 
         switch (cp.getType()) {
             case CENTER:
@@ -116,14 +113,9 @@ public class EllipseDrawer {
         List<Point> points = getPoints();
 
         g2d.setColor(color);
-        g2d.setStroke(new BasicStroke(lineWidth));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        for (int i = 0; i < points.size() - 1; i++) {
-            Point p1 = points.get(i).toIntCoordinates();
-            Point p2 = points.get(i + 1).toIntCoordinates();
-            g2d.drawLine((int) p1.getX(), (int) p1.getY(),
-                    (int) p2.getX(), (int) p2.getY());
+        for (Point p : points) {
+            g2d.fillRect((int)p.getX(), (int)p.getY(), lineWidth, lineWidth);
         }
 
         if (showControlPoints) {
@@ -138,6 +130,7 @@ public class EllipseDrawer {
         return String.format("Center: %s, a=%.1f, b=%.1f",
                 params.getCenter(), params.getA(), params.getB());
     }
+
     public String getAlgorithmInfo() {
         if (algorithm == null) {
             return "No algorithm set";
