@@ -14,7 +14,6 @@ public class InteractiveEllipseEditor extends JFrame {
 
     private JPanel controlPanel;
     private JTextField centerXField, centerYField, aField, bField;
-    private JTextField boundXField, boundYField, widthField, heightField;
     private JCheckBox showControlPointsCheck;
     private JLabel statusLabel;
 
@@ -51,30 +50,10 @@ public class InteractiveEllipseEditor extends JFrame {
         bField = new JTextField(5);
         centerPanel.add(bField);
 
-        JButton createCenterBtn = new JButton("Create from Center");
+        JButton createCenterBtn = new JButton("Create");
         createCenterBtn.addActionListener(e -> createEllipseFromCenter());
         centerPanel.add(createCenterBtn);
 
-        JPanel boundPanel = new JPanel(new FlowLayout());
-        boundPanel.add(new JLabel("Bound X:"));
-        boundXField = new JTextField(5);
-        boundPanel.add(boundXField);
-
-        boundPanel.add(new JLabel("Y:"));
-        boundYField = new JTextField(5);
-        boundPanel.add(boundYField);
-
-        boundPanel.add(new JLabel("Width:"));
-        widthField = new JTextField(5);
-        boundPanel.add(widthField);
-
-        boundPanel.add(new JLabel("Height:"));
-        heightField = new JTextField(5);
-        boundPanel.add(heightField);
-
-        JButton createBoundBtn = new JButton("Create from Bound");
-        createBoundBtn.addActionListener(e -> createEllipseFromBound());
-        boundPanel.add(createBoundBtn);
 
         JPanel controlSettingsPanel = new JPanel(new FlowLayout());
         showControlPointsCheck = new JCheckBox("Show Control Points", true);
@@ -88,7 +67,6 @@ public class InteractiveEllipseEditor extends JFrame {
         controlSettingsPanel.add(statusLabel);
 
         controlPanel.add(centerPanel);
-        controlPanel.add(boundPanel);
         controlPanel.add(controlSettingsPanel);
 
         add(controlPanel, BorderLayout.NORTH);
@@ -158,29 +136,9 @@ public class InteractiveEllipseEditor extends JFrame {
         }
     }
 
-    private void createEllipseFromBound() {
-        try {
-            double x = Double.parseDouble(boundXField.getText());
-            double y = Double.parseDouble(boundYField.getText());
-            double width = Double.parseDouble(widthField.getText());
-            double height = Double.parseDouble(heightField.getText());
-
-            EllipseDrawer ellipse = new EllipseDrawer();
-            ellipse.setEllipse(x, y, width, height);
-            ellipse.setShowControlPoints(true);
-            ellipse.setColor(getRandomColor());
-            ellipses.add(ellipse);
-            currentEllipse = ellipse;
-            updateStatus();
-            repaint();
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers");
-        }
-    }
-
     private void createEllipseAt(Point center) {
         EllipseDrawer ellipse = new EllipseDrawer();
-        ellipse.setEllipse(center, 50, 30); // начальный размер
+        ellipse.setEllipse(center, 50, 30);
         ellipse.setShowControlPoints(true);
         ellipse.setColor(getRandomColor());
         ellipses.add(ellipse);

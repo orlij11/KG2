@@ -75,6 +75,6 @@ public class BresenhamAlgorithm implements EllipseAlgorithm {
 
     @Override
     public String getName() {
-        return "Bresenham Algorithm (Integer)";
+        return "Bresenham Algorithm";
     }
 }
